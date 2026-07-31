@@ -1,0 +1,26 @@
+Berikut adalah daftar akun dummy yang bisa digunakan untuk masuk ke portal admin (http://localhost:5173/login)
+
+Akun-akun ini bersifat hardcoded (statis) dan dapat diubah di dalam file:
+src/contexts/AuthContext.jsx (baris ke-6)
+
+------------------------------------------------------
+1. SUPER ADMIN
+   Email    : superadmin@gmail.com
+   Password : superadmin
+   Akses    : Semua fitur + Pengaturan (Backup/Restore)
+
+2. ADMIN
+   Email    : admin@gmail.com
+   Password : admin
+   Akses    : Wisata, Berita, & Acara
+
+3. PENULIS KONTEN
+   Email    : penuliskonten@gmail.com
+   Password : penuliskonten
+   Akses    : Hanya Berita & Artikel
+
+4. PJ WISATA
+   Email    : wisataalam@gmail.com
+   Password : Wisataalam-12
+   Akses    : Hanya Destinasi Wisata
+------------------------------------------------------
