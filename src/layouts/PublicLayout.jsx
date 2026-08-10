@@ -17,18 +17,17 @@ const PublicLayout = () => {
 
   const navLinks = [
     { name: 'Destinasi Wisata', href: '/#wisata', icon: <Map size={18} /> },
-    { name: 'Kalender Acara', href: '/#kalender', icon: <Calendar size={18} /> },
+    { name: 'Kalender Budaya Digital', href: '/#kalender', icon: <Calendar size={18} /> },
     { name: 'Berita Desa', href: '/#berita', icon: <Newspaper size={18} /> },
   ];
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled || location.pathname !== '/' ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
-      }`}>
+      <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled || location.pathname !== '/' ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
+        }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-12">
-            
+
             <div className="flex items-center">
               <Link to="/" className="flex-shrink-0 flex items-center gap-2 group">
                 <img src="/logo.png" alt="Logo Desa Bugbug" className="w-10 h-10 object-contain shadow-sm group-hover:scale-105 transition-transform" />
@@ -41,12 +40,11 @@ const PublicLayout = () => {
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center space-x-8">
               {navLinks.map((link) => (
-                <a 
-                  key={link.name} 
-                  href={link.href} 
-                  className={`flex items-center gap-1.5 text-sm font-semibold transition-colors hover:text-primary-500 ${
-                    isScrolled || location.pathname !== '/' ? 'text-gray-700' : 'text-white drop-shadow-md'
-                  }`}
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className={`flex items-center gap-1.5 text-sm font-semibold transition-colors hover:text-primary-500 ${isScrolled || location.pathname !== '/' ? 'text-gray-700' : 'text-white drop-shadow-md'
+                    }`}
                 >
                   {link.icon} {link.name}
                 </a>
@@ -55,7 +53,7 @@ const PublicLayout = () => {
 
             {/* Mobile menu button */}
             <div className="md:hidden flex items-center">
-              <button 
+              <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className={`p-2 rounded-md ${isScrolled || location.pathname !== '/' ? 'text-gray-900' : 'text-white'}`}
               >
@@ -83,11 +81,11 @@ const PublicLayout = () => {
           </div>
         )}
       </nav>
-      
+
       <main className="flex-grow">
         <Outlet />
       </main>
-      
+
       <footer className="bg-gray-900 text-white border-t border-gray-800 mt-auto">
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
