@@ -95,13 +95,22 @@ const WisataForm = () => {
     }
   };
 
+  // TAHAP CREATE (MEMBUAT BARU) DAN UPDATE (MENGUBAH DATA):
+  // Fungsi ini dijalankan ketika tombol "Simpan Data Wisata" di bagian paling bawah ditekan.
   const handleSubmit = (e) => {
+    // Mencegah halaman termuat ulang (refresh) secara otomatis
     e.preventDefault();
+    
+    // Sistem mengecek: "Apakah kita sedang mengedit data yang sudah ada?"
     if (isEdit) {
+      // JIKA YA (UPDATE): Sistem mencari data lama berdasarkan ID-nya, lalu menimpanya dengan data baru yang baru saja diketik.
       DestinationStorage.update(id, formData);
     } else {
+      // JIKA TIDAK (CREATE): Sistem menyimpan ini sebagai data wisata yang benar-benar baru ke dalam gudang penyimpanan.
       DestinationStorage.create(formData);
     }
+    
+    // Setelah selesai menyimpan, sistem otomatis membawa pengguna kembali ke halaman daftar wisata.
     navigate('/admin/wisata');
   };
 

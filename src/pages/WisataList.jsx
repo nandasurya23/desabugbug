@@ -12,23 +12,35 @@ const WisataList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 10;
 
+  // TAHAP READ (MEMBACA DATA): 
+  // Saat halaman ini pertama kali dibuka, sistem akan otomatis mengambil data wisata.
   useEffect(() => {
     loadData();
   }, []);
 
+  // Ini adalah proses dimana sistem pergi ke 'gudang penyimpanan' untuk mengambil daftar wisata yang ada.
   const loadData = () => {
     setDestinations(DestinationStorage.getAll());
   };
 
+  // TAHAP DELETE (MENGHAPUS DATA):
+  // Saat tombol hapus ditekan, sistem tidak langsung menghapus, tapi memunculkan jendela konfirmasi dulu
+  // "Apakah Anda yakin ingin menghapus data ini?"
   const confirmDelete = (item) => {
     setItemToDelete(item);
     setShowDeleteModal(true);
   };
 
+  // Jika pengguna menjawab "Ya, Hapus", barulah sistem benar-benar menghapus data tersebut dari gudang.
   const handleDelete = () => {
     if (itemToDelete) {
+      // Menghapus data dari penyimpanan berdasarkan ID-nya
       DestinationStorage.remove(itemToDelete.id);
+      
+      // Setelah berhasil dihapus, sistem akan mengambil daftar terbaru dari gudang (refresh data)
       loadData();
+      
+      // Menutup jendela konfirmasi
       setShowDeleteModal(false);
       setItemToDelete(null);
       

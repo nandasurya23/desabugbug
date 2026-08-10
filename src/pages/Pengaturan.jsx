@@ -10,9 +10,13 @@ const Pengaturan = () => {
     setQuotaInfo(LocalStorageAPI.checkQuota());
   }, []);
 
+  // FUNGSI INI DIJALANKAN KETIKA TOMBOL "CADANGKAN DATA" (BACKUP) DITEKAN
+  // Sistem akan mengumpulkan semua data wisata, artikel, dan event yang ada saat ini.
   const handleBackup = () => {
     try {
       const allData = {};
+      
+      // Tahap 1: Sistem mencari dan mengumpulkan semua data yang tersimpan
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (key && key.startsWith('app_wisata_')) {
@@ -20,9 +24,12 @@ const Pengaturan = () => {
         }
       }
 
+      // Tahap 2: Sistem membungkus semua data tersebut ke dalam sebuah file khusus bernama backup.json
       const jsonString = JSON.stringify(allData, null, 2);
       const blob = new Blob([jsonString], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
+      
+      // Tahap 3: Sistem secara otomatis mengunduh (download) file tersebut ke komputer/HP Anda
       const a = document.createElement('a');
       a.href = url;
       a.download = `backup-wisata-${new Date().toISOString().split('T')[0]}.json`;
@@ -35,34 +42,41 @@ const Pengaturan = () => {
     }
   };
 
+  // FUNGSI INI DIJALANKAN KETIKA PENGGUNA MENGUNGGAH FILE UNTUK "PULIHKAN DATA" (RESTORE)
   const handleRestore = (e) => {
+    // Sistem menerima file backup yang diunggah oleh pengguna
     const file = e.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
     reader.onload = (event) => {
       try {
+        // Sistem membuka isi file tersebut
         const parsedData = JSON.parse(event.target.result);
         
-        // Simple validation
+        // Tahap 1: Sistem memeriksa apakah isi filenya benar-benar data aplikasi ini
+        // (Jika salah format, sistem akan menolak dan pindah ke bagian 'catch' di bawah)
         if (typeof parsedData !== 'object' || !Object.keys(parsedData).some(k => k.startsWith('app_wisata_'))) {
           throw new Error('Format file tidak valid.');
         }
 
-        // Overwrite Data
+        // Tahap 2: Sistem menghapus semua data lama yang ada saat ini
         LocalStorageAPI.clearAllAppKeys();
         
+        // Tahap 3: Sistem memasukkan data baru yang berasal dari file backup tadi
         Object.keys(parsedData).forEach(key => {
           if (key.startsWith('app_wisata_')) {
             LocalStorageAPI.set(key, parsedData[key]);
           }
         });
 
+        // Tahap 4: Sistem memberitahu bahwa proses berhasil dan memuat ulang halaman
         setImportStatus({ show: true, success: true, message: 'Data berhasil dipulihkan! Halaman akan dimuat ulang.' });
         setTimeout(() => {
           window.location.reload();
         }, 2000);
       } catch (error) {
+        // Jika file rusak atau formatnya salah, tampilkan pesan kesalahan ke pengguna
         setImportStatus({ show: true, success: false, message: `Gagal memulihkan data: ${error.message}` });
       }
     };
