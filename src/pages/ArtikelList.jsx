@@ -16,8 +16,9 @@ const ArtikelList = () => {
     loadData();
   }, []);
 
-  const loadData = () => {
-    setArticles(ArticleStorage.getAll().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+  const loadData = async () => {
+    const data = await ArticleStorage.getAll();
+    setArticles(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
   };
 
   const confirmDelete = (item) => {
@@ -25,10 +26,10 @@ const ArtikelList = () => {
     setShowDeleteModal(true);
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (itemToDelete) {
-      ArticleStorage.remove(itemToDelete.id);
-      loadData();
+      await ArticleStorage.remove(itemToDelete.id);
+      await loadData();
       setShowDeleteModal(false);
       setItemToDelete(null);
       

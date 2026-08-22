@@ -16,8 +16,9 @@ const EventList = () => {
     loadData();
   }, []);
 
-  const loadData = () => {
-    setEvents(EventStorage.getAll().sort((a, b) => new Date(b.startDate) - new Date(a.startDate)));
+  const loadData = async () => {
+    const data = await EventStorage.getAll();
+    setEvents(data.sort((a, b) => new Date(b.startDate) - new Date(a.startDate)));
   };
 
   const confirmDelete = (item) => {
@@ -25,10 +26,10 @@ const EventList = () => {
     setShowDeleteModal(true);
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (itemToDelete) {
-      EventStorage.remove(itemToDelete.id);
-      loadData();
+      await EventStorage.remove(itemToDelete.id);
+      await loadData();
       setShowDeleteModal(false);
       setItemToDelete(null);
       

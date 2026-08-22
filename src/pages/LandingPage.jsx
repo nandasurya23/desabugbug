@@ -12,13 +12,23 @@ const LandingPage = () => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    // Simulate network delay for smooth skeleton transition
-    setTimeout(() => {
-      setDestinations(DestinationStorage.getAll().filter(d => d.status === 'Buka' || d.status === 'Renovasi'));
-      setArticles(ArticleStorage.getAll().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 3));
-      setEvents(EventStorage.getAll());
+    const loadData = async () => {
+      // Simulate network delay for smooth skeleton transition
+      await new Promise(resolve => setTimeout(resolve, 200));
+      
+      const allDestinations = await DestinationStorage.getAll();
+      setDestinations(allDestinations.filter(d => d.status === 'Buka' || d.status === 'Renovasi'));
+      
+      const allArticles = await ArticleStorage.getAll();
+      setArticles(allArticles.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 3));
+      
+      const allEvents = await EventStorage.getAll();
+      setEvents(allEvents);
+      
       setLoading(false);
-    }, 200);
+    };
+    
+    loadData();
   }, []);
 
   return (

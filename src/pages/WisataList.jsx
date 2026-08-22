@@ -19,8 +19,9 @@ const WisataList = () => {
   }, []);
 
   // Ini adalah proses dimana sistem pergi ke 'gudang penyimpanan' untuk mengambil daftar wisata yang ada.
-  const loadData = () => {
-    setDestinations(DestinationStorage.getAll());
+  const loadData = async () => {
+    const data = await DestinationStorage.getAll();
+    setDestinations(data);
   };
 
   // TAHAP DELETE (MENGHAPUS DATA):
@@ -32,13 +33,13 @@ const WisataList = () => {
   };
 
   // Jika pengguna menjawab "Ya, Hapus", barulah sistem benar-benar menghapus data tersebut dari gudang.
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (itemToDelete) {
       // Menghapus data dari penyimpanan berdasarkan ID-nya
-      DestinationStorage.remove(itemToDelete.id);
+      await DestinationStorage.remove(itemToDelete.id);
       
       // Setelah berhasil dihapus, sistem akan mengambil daftar terbaru dari gudang (refresh data)
-      loadData();
+      await loadData();
       
       // Menutup jendela konfirmasi
       setShowDeleteModal(false);

@@ -7,20 +7,23 @@ const Pengaturan = () => {
   const [importStatus, setImportStatus] = useState({ show: false, success: false, message: '' });
 
   useEffect(() => {
-    setQuotaInfo(LocalStorageAPI.checkQuota());
+    const loadQuota = async () => {
+      const q = await LocalStorageAPI.checkQuota();
+      setQuotaInfo(q);
+    };
+    loadQuota();
   }, []);
 
   // FUNGSI INI DIJALANKAN KETIKA TOMBOL "CADANGKAN DATA" (BACKUP) DITEKAN
   // Sistem akan mengumpulkan semua data wisata, artikel, dan event yang ada saat ini.
-  const handleBackup = () => {
+  const handleBackup = async () => {
     try {
       const allData = {};
       
-      // Tahap 1: Sistem mencari dan mengumpulkan semua data yang tersimpan
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key && key.startsWith('app_wisata_')) {
-          allData[key] = LocalStorageAPI.get(key);
+      const keys = await LocalStorageAPI.getAllKeys();
+      for (const key of keys) {
+        if (key.startsWith('app_wisata_')) {
+          allData[key] = await LocalStorageAPI.get(key);
         }
       }
 
@@ -43,32 +46,32 @@ const Pengaturan = () => {
   };
 
   // FUNGSI INI DIJALANKAN KETIKA PENGGUNA MENGUNGGAH FILE UNTUK "PULIHKAN DATA" (RESTORE)
-  const handleRestore = (e) => {
+  const handleRestore = async (e) => {
     // Sistem menerima file backup yang diunggah oleh pengguna
     const file = e.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = (event) => {
+    reader.onload = async (event) => {
       try {
         // Sistem membuka isi file tersebut
         const parsedData = JSON.parse(event.target.result);
         
         // Tahap 1: Sistem memeriksa apakah isi filenya benar-benar data aplikasi ini
-        // (Jika salah format, sistem akan menolak dan pindah ke bagian 'catch' di bawah)
         if (typeof parsedData !== 'object' || !Object.keys(parsedData).some(k => k.startsWith('app_wisata_'))) {
           throw new Error('Format file tidak valid.');
         }
 
         // Tahap 2: Sistem menghapus semua data lama yang ada saat ini
-        LocalStorageAPI.clearAllAppKeys();
+        await LocalStorageAPI.clearAllAppKeys();
         
         // Tahap 3: Sistem memasukkan data baru yang berasal dari file backup tadi
-        Object.keys(parsedData).forEach(key => {
+        const keys = Object.keys(parsedData);
+        for (const key of keys) {
           if (key.startsWith('app_wisata_')) {
-            LocalStorageAPI.set(key, parsedData[key]);
+            await LocalStorageAPI.set(key, parsedData[key]);
           }
-        });
+        }
 
         // Tahap 4: Sistem memberitahu bahwa proses berhasil dan memuat ulang halaman
         setImportStatus({ show: true, success: true, message: 'Data berhasil dipulihkan! Halaman akan dimuat ulang.' });
@@ -111,7 +114,7 @@ const Pengaturan = () => {
           <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
             <div className="flex justify-between text-sm mb-2 font-medium">
               <span className="text-gray-700">Terpakai: {formatBytes(quotaInfo.used)}</span>
-              <span className="text-gray-500">Maksimal: ~5 MB</span>
+              <span className="text-gray-500">Maksimal: ~1 TB</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
               <div 

@@ -11,22 +11,26 @@ const DetailArtikel = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    const data = ArticleStorage.getById(id);
-    if (!data) {
-      navigate('/404');
-      return;
-    }
-    setArtikel(data);
-    
-    // Ambil berita lainnya (selain berita ini) maksimal 4
-    const others = ArticleStorage.getAll()
-      .filter(a => a.id !== id)
-      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-      .slice(0, 4);
-    setBeritaLainnya(others);
-    
-    setIsLoading(false);
+    const loadData = async () => {
+      window.scrollTo(0, 0);
+      const data = await ArticleStorage.getById(id);
+      if (!data) {
+        navigate('/404');
+        return;
+      }
+      setArtikel(data);
+      
+      // Ambil berita lainnya (selain berita ini) maksimal 4
+      const allArticles = await ArticleStorage.getAll();
+      const others = allArticles
+        .filter(a => a.id !== id)
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .slice(0, 4);
+      setBeritaLainnya(others);
+      
+      setIsLoading(false);
+    };
+    loadData();
   }, [id, navigate]);
 
   const handleShare = () => {

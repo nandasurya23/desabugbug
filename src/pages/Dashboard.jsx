@@ -30,23 +30,31 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate slight delay for skeleton
-    setTimeout(() => {
+    const loadData = async () => {
+      // Simulate slight delay for skeleton
+      await new Promise(resolve => setTimeout(resolve, 200));
+      
+      const wisataList = await DestinationStorage.getAll();
+      const artikelList = await ArticleStorage.getAll();
+      const eventList = await EventStorage.getAll();
+
       // Load stats
       setStats({
-        wisata: DestinationStorage.getAll().length,
-        artikel: ArticleStorage.getAll().length,
-        event: EventStorage.getAll().length,
+        wisata: wisataList.length,
+        artikel: artikelList.length,
+        event: eventList.length,
       });
 
       // Check quota
-      const quota = LocalStorageAPI.checkQuota();
+      const quota = await LocalStorageAPI.checkQuota();
       if (quota.isNearLimit) {
         setQuotaWarning(true);
       }
       
       setLoading(false);
-    }, 200);
+    };
+    
+    loadData();
   }, []);
 
   // Dummy Data for Chart

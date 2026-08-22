@@ -8,36 +8,38 @@ class BaseCRUD {
     this.cache = null;
   }
 
-  getAll() {
+  async getAll() {
     if (this.cache === null) {
-      this.cache = LocalStorageAPI.get(this.key) || [];
+      this.cache = (await LocalStorageAPI.get(this.key)) || [];
     }
     return this.cache;
   }
 
-  getById(id) {
-    const items = this.getAll();
+  async getById(id) {
+    const items = await this.getAll();
     return items.find(item => item.id === id);
   }
 
-  create(data) {
-    const items = this.getAll();
+  async create(data) {
+    const items = await this.getAll();
     const newItem = { ...data, id: generateId(), createdAt: new Date().toISOString() };
     const newItems = [...items, newItem];
-    if (LocalStorageAPI.set(this.key, newItems)) {
+    const success = await LocalStorageAPI.set(this.key, newItems);
+    if (success) {
       this.cache = newItems;
       return newItem;
     }
     return null;
   }
 
-  update(id, data) {
-    const items = this.getAll();
+  async update(id, data) {
+    const items = await this.getAll();
     const index = items.findIndex(item => item.id === id);
     if (index !== -1) {
       const newItems = [...items];
       newItems[index] = { ...newItems[index], ...data, updatedAt: new Date().toISOString() };
-      if (LocalStorageAPI.set(this.key, newItems)) {
+      const success = await LocalStorageAPI.set(this.key, newItems);
+      if (success) {
         this.cache = newItems;
         return newItems[index];
       }
@@ -45,11 +47,12 @@ class BaseCRUD {
     return null;
   }
 
-  remove(id) {
-    const items = this.getAll();
+  async remove(id) {
+    const items = await this.getAll();
     const filtered = items.filter(item => item.id !== id);
     if (items.length !== filtered.length) {
-      if (LocalStorageAPI.set(this.key, filtered)) {
+      const success = await LocalStorageAPI.set(this.key, filtered);
+      if (success) {
         this.cache = filtered;
         return true;
       }

@@ -31,10 +31,26 @@ const LoadingFallback = () => (
 );
 import { seedInitialData } from './storage/seeder';
 
-// Menjalankan seeder sekali saat aplikasi dimuat
-seedInitialData();
-
 function App() {
+  const [isInitializing, setIsInitializing] = React.useState(true);
+
+  React.useEffect(() => {
+    const init = async () => {
+      try {
+        await seedInitialData();
+      } catch (e) {
+        console.error("Failed to seed initial data:", e);
+      } finally {
+        setIsInitializing(false);
+      }
+    };
+    init();
+  }, []);
+
+  if (isInitializing) {
+    return <LoadingFallback />;
+  }
+
   return (
     <AuthProvider>
       <Router>

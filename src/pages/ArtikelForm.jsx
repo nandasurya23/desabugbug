@@ -22,12 +22,15 @@ const ArtikelForm = () => {
 
   useEffect(() => {
     if (isEdit) {
-      const data = ArticleStorage.getById(id);
-      if (data) {
-        setFormData(data);
-      } else {
-        navigate('/admin/artikel');
-      }
+      const loadData = async () => {
+        const data = await ArticleStorage.getById(id);
+        if (data) {
+          setFormData(data);
+        } else {
+          navigate('/admin/artikel');
+        }
+      };
+      loadData();
     }
   }, [id, navigate, isEdit]);
 
@@ -56,12 +59,12 @@ const ArtikelForm = () => {
     setFormData(prev => ({ ...prev, image_url: '' }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (isEdit) {
-      ArticleStorage.update(id, formData);
+      await ArticleStorage.update(id, formData);
     } else {
-      ArticleStorage.create(formData);
+      await ArticleStorage.create(formData);
     }
     navigate('/admin/artikel');
   };

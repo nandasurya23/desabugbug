@@ -26,12 +26,15 @@ const EventForm = () => {
 
   useEffect(() => {
     if (isEdit) {
-      const data = EventStorage.getById(id);
-      if (data) {
-        setFormData(data);
-      } else {
-        navigate('/admin/event');
-      }
+      const loadData = async () => {
+        const data = await EventStorage.getById(id);
+        if (data) {
+          setFormData(data);
+        } else {
+          navigate('/admin/event');
+        }
+      };
+      loadData();
     }
   }, [id, navigate, isEdit]);
 
@@ -60,12 +63,12 @@ const EventForm = () => {
     setFormData(prev => ({ ...prev, image_url: '' }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (isEdit) {
-      EventStorage.update(id, formData);
+      await EventStorage.update(id, formData);
     } else {
-      EventStorage.create(formData);
+      await EventStorage.create(formData);
     }
     navigate('/admin/event');
   };

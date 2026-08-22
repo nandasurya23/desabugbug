@@ -9,12 +9,15 @@ const DetailWisata = () => {
   const [wisata, setWisata] = useState(null);
 
   useEffect(() => {
-    const data = DestinationStorage.getById(id);
-    if (data) {
-      setWisata(data);
-    } else {
-      navigate('/');
-    }
+    const loadData = async () => {
+      const data = await DestinationStorage.getById(id);
+      if (data) {
+        setWisata(data);
+      } else {
+        navigate('/');
+      }
+    };
+    loadData();
   }, [id, navigate]);
 
   if (!wisata) return <div className="min-h-screen flex items-center justify-center">Memuat...</div>;

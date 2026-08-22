@@ -130,15 +130,14 @@ const MOCK_EVENTS = [
   }
 ];
 
-export const seedInitialData = () => {
-  const currentData = localStorage.getItem('app_wisata_destinations');
+export const seedInitialData = async () => {
+  const currentData = await LocalStorageAPI.get('app_wisata_destinations');
   
-  // Patch for broken Bukit Asah images if they already exist in localStorage
-  if (currentData) {
+  // Patch for broken Bukit Asah images if they already exist
+  if (currentData && Array.isArray(currentData) && currentData.length > 0) {
     try {
-      const parsed = JSON.parse(currentData);
       let needsUpdate = false;
-      const patched = parsed.map(dest => {
+      const patched = currentData.map(dest => {
         if (dest.name === "Bukit Asah" && dest.galleries) {
           const hasBrokenImg = dest.galleries.some(g => g.url.includes("1504280390467") || g.url.includes("1478131143081"));
           if (hasBrokenImg) {
@@ -152,18 +151,18 @@ export const seedInitialData = () => {
         return dest;
       });
       if (needsUpdate) {
-        LocalStorageAPI.set('app_wisata_destinations', patched);
+        await LocalStorageAPI.set('app_wisata_destinations', patched);
       }
     } catch (e) {
       // ignore
     }
   }
 
-  // Hanya seed jika app_wisata_destinations benar-benar kosong atau berupa array kosong '[]'
-  if (!currentData || currentData === '[]') {
-    LocalStorageAPI.set('app_wisata_destinations', MOCK_DESTINATIONS);
-    LocalStorageAPI.set('app_wisata_articles', MOCK_ARTICLES);
-    LocalStorageAPI.set('app_wisata_events', MOCK_EVENTS);
+  // Hanya seed jika app_wisata_destinations kosong
+  if (!currentData || (Array.isArray(currentData) && currentData.length === 0)) {
+    await LocalStorageAPI.set('app_wisata_destinations', MOCK_DESTINATIONS);
+    await LocalStorageAPI.set('app_wisata_articles', MOCK_ARTICLES);
+    await LocalStorageAPI.set('app_wisata_events', MOCK_EVENTS);
     console.log("Dummy data successfully seeded!");
   }
 };
