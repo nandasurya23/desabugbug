@@ -79,8 +79,10 @@ const ArtikelList = () => {
                   <tr key={item.id} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
                     <td className="p-4">
                       <div className="flex items-center gap-4">
-                        {item.image_url && (
-                          <img src={item.image_url} alt="Cover" className="w-12 h-12 rounded object-cover flex-shrink-0" loading="lazy" decoding="async" />
+                        {item.image_url ? (
+                          <img src={item.image_url} alt="Cover" className="w-12 h-12 rounded object-cover flex-shrink-0" loading="lazy" decoding="async" onError={(e) => { e.target.onerror = null; e.target.src="/default.jpeg"; }} />
+                        ) : (
+                          <img src="/default.jpeg" alt="Cover" className="w-12 h-12 rounded object-cover flex-shrink-0" loading="lazy" decoding="async" />
                         )}
                         <p className="font-semibold text-gray-900 line-clamp-2">{item.title}</p>
                       </div>

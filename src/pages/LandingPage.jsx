@@ -84,12 +84,11 @@ const LandingPage = () => {
                       loading="lazy" 
                       decoding="async" 
                       onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&auto=format,compress&q=60";
+                        e.target.src="/default.jpeg";
                       }}
                     />
                   ) : (
-                    <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&auto=format,compress&q=60" alt="Wisata Budaya Bali" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80" loading="lazy" decoding="async" />
+                    <img src="/default.jpeg" alt="Wisata Budaya Bali" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80" loading="lazy" decoding="async" />
                   )}
                   <div className="absolute top-4 left-4">
                      <span className={`px-3 py-1 text-xs font-bold rounded-full shadow-sm backdrop-blur-md ${wisata.status === 'Buka' ? 'bg-white/90 text-emerald-600' : 'bg-amber-500/90 text-white'}`}>
@@ -147,14 +146,13 @@ const LandingPage = () => {
                       loading="lazy" 
                       decoding="async" 
                       onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src="https://images.unsplash.com/photo-1559628233-eb1b1a45564b?w=800&auto=format,compress&q=60";
+                        e.target.src="/default.jpeg";
                       }}
                     />
                   </div>
                 ) : (
                   <div className="h-48 overflow-hidden bg-gray-200">
-                    <img src="https://images.unsplash.com/photo-1559628233-eb1b1a45564b?w=800&auto=format,compress&q=60" alt="Placeholder Berita" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80" loading="lazy" decoding="async" />
+                    <img src="/default.jpeg" alt="Placeholder Berita" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80" loading="lazy" decoding="async" />
                   </div>
                 )}
                 <div className="p-6 flex-1 flex flex-col">

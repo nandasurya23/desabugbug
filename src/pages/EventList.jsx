@@ -80,11 +80,9 @@ const EventList = () => {
                     <td className="p-4">
                       <div className="flex items-center gap-4">
                         {item.image_url ? (
-                          <img src={item.image_url} alt="Cover" className="w-12 h-12 rounded object-cover flex-shrink-0 border" loading="lazy" decoding="async" />
+                          <img src={item.image_url} alt="Cover" className="w-12 h-12 rounded object-cover flex-shrink-0 border" loading="lazy" decoding="async" onError={(e) => { e.target.onerror = null; e.target.src="/default.jpeg"; }} />
                         ) : (
-                           <div className="w-12 h-12 rounded bg-purple-50 flex items-center justify-center flex-shrink-0 text-purple-400">
-                             <Calendar size={20} />
-                           </div>
+                          <img src="/default.jpeg" alt="Cover" className="w-12 h-12 rounded object-cover flex-shrink-0 border" loading="lazy" decoding="async" />
                         )}
                         <p className="font-semibold text-gray-900 line-clamp-2">{item.title}</p>
                       </div>

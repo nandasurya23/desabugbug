@@ -28,11 +28,9 @@ const DetailWisata = () => {
       {/* Header Image */}
       <div className="relative h-[40vh] md:h-[60vh] bg-gray-900">
         {wisata.galleries && wisata.galleries.length > 0 ? (
-          <img src={wisata.galleries[0].url} alt={wisata.name} className="w-full h-full object-cover opacity-60" loading="eager" fetchPriority="high" />
+          <img src={wisata.galleries[0].url} alt={wisata.name} className="w-full h-full object-cover opacity-60" loading="eager" fetchPriority="high" onError={(e) => { e.target.onerror = null; e.target.src="/default.jpeg"; }} />
         ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center text-gray-500 opacity-30">
-             <ImageIcon size={64} />
-          </div>
+          <img src="/default.jpeg" alt="Default" className="w-full h-full object-cover opacity-60" loading="eager" fetchPriority="high" />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>
         <div className="absolute top-6 left-6 z-10">
@@ -105,7 +103,7 @@ const DetailWisata = () => {
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {wisata.galleries.slice(1).map((img, idx) => (
                   <div key={idx} className="aspect-square rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                    <img src={img.url} alt={`Gallery ${idx+1}`} className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" />
+                    <img src={img.url} alt={`Gallery ${idx+1}`} className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" onError={(e) => { e.target.onerror = null; e.target.src="/default.jpeg"; }} />
                   </div>
                 ))}
               </div>

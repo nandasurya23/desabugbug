@@ -176,7 +176,7 @@ const DigitalCalendar = ({ events }) => {
                   <img src={event.image_url} alt={event.title} className="w-full h-40 object-cover rounded-2xl mb-4 shadow-sm" loading="lazy" decoding="async" />
                 ) : (
                   <img 
-                    src="https://images.unsplash.com/photo-1604999333679-b86d54738315?w=800&q=80" 
+                    src="/default.jpeg" 
                     alt="Acara Komunitas" 
                     className="w-full h-40 object-cover rounded-2xl mb-4 shadow-sm opacity-90" 
                     loading="lazy" 

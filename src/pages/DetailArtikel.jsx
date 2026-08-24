@@ -84,9 +84,13 @@ const DetailArtikel = () => {
               </div>
             </div>
 
-            {artikel.image_url && (
+            {artikel.image_url ? (
               <div className="mb-10 rounded-3xl overflow-hidden shadow-sm bg-gray-100">
-                <img src={artikel.image_url} alt={artikel.title} className="w-full h-auto max-h-[600px] object-cover" loading="lazy" decoding="async"/>
+                <img src={artikel.image_url} alt={artikel.title} className="w-full h-auto max-h-[600px] object-cover" loading="lazy" decoding="async" onError={(e) => { e.target.onerror = null; e.target.src="/default.jpeg"; }}/>
+              </div>
+            ) : (
+              <div className="mb-10 rounded-3xl overflow-hidden shadow-sm bg-gray-100">
+                <img src="/default.jpeg" alt="Default" className="w-full h-auto max-h-[600px] object-cover" loading="lazy" decoding="async" />
               </div>
             )}
             
@@ -121,11 +125,11 @@ const DetailArtikel = () => {
                     <Link to={`/berita/${item.id}`} key={item.id} className="group flex gap-4 items-start bg-white p-3 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
                       {item.image_url ? (
                         <div className="w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden bg-gray-100">
-                          <img src={item.image_url} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy"/>
+                          <img src={item.image_url} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" onError={(e) => { e.target.onerror = null; e.target.src="/default.jpeg"; }}/>
                         </div>
                       ) : (
-                        <div className="w-24 h-24 flex-shrink-0 rounded-xl bg-gray-200 flex items-center justify-center">
-                          <span className="text-gray-400 text-xs">No Image</span>
+                        <div className="w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden bg-gray-100">
+                          <img src="/default.jpeg" alt="Default" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy"/>
                         </div>
                       )}
                       <div className="flex-1 flex flex-col justify-center">

@@ -108,7 +108,7 @@ const EventForm = () => {
             <label className="label-text mb-2 block">Gambar Pamflet / Poster (Opsional)</label>
             {formData.image_url ? (
               <div className="relative inline-block">
-                <img src={formData.image_url} alt="Cover" className="w-full max-w-md h-auto rounded-lg border border-gray-200 object-cover" loading="lazy" decoding="async" />
+                <img src={formData.image_url} alt="Cover" className="w-full max-w-md h-auto rounded-lg border border-gray-200 object-cover" loading="lazy" decoding="async" onError={(e) => { e.target.onerror = null; e.target.src="/default.jpeg"; }} />
                 <button type="button" onClick={removeImage} className="absolute -top-3 -right-3 bg-red-600 text-white p-1.5 rounded-full hover:bg-red-700 shadow-md">
                   <X size={16} />
                 </button>

@@ -204,7 +204,7 @@ const WisataForm = () => {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {formData.galleries.map((img, idx) => (
               <div key={img.id} className="relative group rounded-lg overflow-hidden border border-gray-200 aspect-square">
-                <img src={img.url} alt="Gallery" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                <img src={img.url} alt="Gallery" className="w-full h-full object-cover" loading="lazy" decoding="async" onError={(e) => { e.target.onerror = null; e.target.src="/default.jpeg"; }} />
                 <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <button type="button" onClick={() => handleArrayRemove('galleries', idx)} className="bg-red-600 text-white p-2 rounded-full hover:bg-red-700">
                     <Trash2 size={16} />
