@@ -37,7 +37,7 @@ const LandingPage = () => {
       {/* Hero Section */}
       <section className="relative text-white py-32 px-4 md:py-48 overflow-hidden">
         <img 
-          src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1600&auto=format,compress&q=60" 
+          src="/hero.jpeg" 
           alt="Desa Bugbug Scenery" 
           className="absolute inset-0 w-full h-full object-cover bg-gray-900" 
           fetchpriority="high"
