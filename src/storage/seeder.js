@@ -17,8 +17,8 @@ const MOCK_DESTINATIONS = [
       { id: "a1", name: "Bias Tugel Bungalows", price: "Rp 350.000 / Malam" }
     ],
     galleries: [
-      { id: "g1", url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80" },
-      { id: "g2", url: "https://images.unsplash.com/photo-1498623116890-37e912163d5d?w=800&q=80" }
+      { id: "g1", url: "https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=800&q=80" },
+      { id: "g2", url: "https://images.unsplash.com/photo-1539367628448-4bc5c9d171c8?w=800&q=80" }
     ],
     openingHours: { senin: "07:00 - 18:00", selasa: "07:00 - 18:00", rabu: "07:00 - 18:00", kamis: "07:00 - 18:00", jumat: "07:00 - 18:00", sabtu: "06:00 - 18:00", minggu: "06:00 - 18:00" },
     contact: { phone: "081234567890", address: "Jl. Pantai Bias Tugel, Desa Bugbug, Karangasem" },
@@ -37,8 +37,8 @@ const MOCK_DESTINATIONS = [
     ],
     accommodations: [],
     galleries: [
-      { id: "g1", url: "https://images.unsplash.com/photo-1518182170546-076616fdacdc?w=800&auto=format,compress&q=80" },
-      { id: "g2", url: "https://images.unsplash.com/photo-1536152470836-b943b246224c?w=800&auto=format,compress&q=80" }
+      { id: "g1", url: "https://images.unsplash.com/photo-1559628233-eb1b1a45564b?w=800&auto=format,compress&q=80" },
+      { id: "g2", url: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&auto=format,compress&q=80" }
     ],
     openingHours: { senin: "24 Jam", selasa: "24 Jam", rabu: "24 Jam", kamis: "24 Jam", jumat: "24 Jam", sabtu: "24 Jam", minggu: "24 Jam" },
     contact: { phone: "081987654321", address: "Bukit Asah, Desa Bugbug, Karangasem" },
@@ -57,7 +57,7 @@ const MOCK_DESTINATIONS = [
     ],
     accommodations: [],
     galleries: [
-      { id: "g1", url: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80" }
+      { id: "g1", url: "https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=800&q=80" }
     ],
     openingHours: { senin: "08:00 - 17:00", selasa: "08:00 - 17:00", rabu: "08:00 - 17:00", kamis: "08:00 - 17:00", jumat: "08:00 - 17:00", sabtu: "08:00 - 17:00", minggu: "08:00 - 17:00" },
     contact: { phone: "082345678912", address: "Perasi, Desa Bugbug" },
@@ -71,7 +71,7 @@ const MOCK_ARTICLES = [
     title: "Penghargaan Desa Wisata Terbersih se-Bali Tahun Ini",
     content: "Desa Bugbug dengan bangga mengumumkan bahwa kami telah menerima penghargaan sebagai Desa Wisata dengan tingkat kebersihan terbaik di Bali. Penghargaan ini diberikan atas dedikasi seluruh perangkat desa, pengelola wisata, dan terutama kesadaran masyarakat dalam menjaga lingkungan pantai dan bukit tetap asri. Mari kita pertahankan kebanggaan ini!",
     author: "Penulis Konten",
-    image_url: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80",
+    image_url: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80",
     createdAt: new Date(Date.now() - 86400000).toISOString() // 1 day ago
   },
   {
@@ -79,7 +79,7 @@ const MOCK_ARTICLES = [
     title: "Pembukaan Fasilitas Baru di Bukit Asah",
     content: "Merespons tingginya minat wisatawan yang berkemah, pengelola Bukit Asah kini meresmikan area fasilitas umum baru berupa toilet berstandar internasional dan area api unggun komunal. Fasilitas ini diharapkan dapat meningkatkan kenyamanan pengunjung yang menginap semalaman.",
     author: "Admin Desa",
-    image_url: "https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=800&q=80",
+    image_url: "https://images.unsplash.com/photo-1559628233-eb1b1a45564b?w=800&q=80",
     createdAt: new Date(Date.now() - (86400000 * 3)).toISOString() // 3 days ago
   }
 ];
@@ -100,7 +100,7 @@ const MOCK_EVENTS = [
     startTime: "09:00",
     endDate: getFutureDate(4),
     endTime: "16:00",
-    image_url: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80",
+    image_url: "https://images.unsplash.com/photo-1604999333679-b86d54738315?w=800&q=80",
     map_iframe: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.7480579172465!2d115.5898863!3d-8.4900894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd206e1088d8b67%3A0x5030bfbca7d0ba0!2sPura%20Bale%20Agung%20Desa%20Adat%20Bugbug!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid",
     createdAt: new Date().toISOString()
   },
@@ -113,7 +113,7 @@ const MOCK_EVENTS = [
     startTime: "17:00",
     endDate: getFutureDate(9),
     endTime: "22:00",
-    image_url: "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=800&q=80",
+    image_url: "https://images.unsplash.com/photo-1596404558231-1e967a5b3a62?w=800&q=80",
     createdAt: new Date().toISOString()
   },
   {
@@ -125,7 +125,7 @@ const MOCK_EVENTS = [
     startTime: "06:30",
     endDate: getFutureDate(1),
     endTime: "09:00",
-    image_url: null, // No poster
+    image_url: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&auto=format,compress&q=60", // Placeholder budaya Bali
     createdAt: new Date().toISOString()
   }
 ];
@@ -143,8 +143,8 @@ export const seedInitialData = async () => {
           if (hasBrokenImg) {
             needsUpdate = true;
             dest.galleries = [
-              { id: "g1", url: "https://images.unsplash.com/photo-1518182170546-076616fdacdc?w=800&auto=format,compress&q=80" },
-              { id: "g2", url: "https://images.unsplash.com/photo-1536152470836-b943b246224c?w=800&auto=format,compress&q=80" }
+              { id: "g1", url: "https://images.unsplash.com/photo-1559628233-eb1b1a45564b?w=800&auto=format,compress&q=80" },
+              { id: "g2", url: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&auto=format,compress&q=80" }
             ];
           }
         }

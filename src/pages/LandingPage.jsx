@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { DestinationStorage, ArticleStorage, EventStorage } from '../storage/crud';
 import DigitalCalendar from '../components/DigitalCalendar';
 import GlobalSkeleton from '../components/GlobalSkeleton';
-import { MapPin, ArrowRight } from 'lucide-react';
+import { MapPin, ArrowRight, Phone, Mail } from 'lucide-react';
 
 const LandingPage = () => {
   const [loading, setLoading] = useState(true);
@@ -77,9 +77,19 @@ const LandingPage = () => {
               <Link to={`/wisata/${wisata.id}`} key={wisata.id} className="group bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col transform hover:-translate-y-2">
                 <div className="relative h-56 overflow-hidden bg-gray-200">
                   {wisata.galleries && wisata.galleries.length > 0 ? (
-                    <img src={wisata.galleries[0].url} alt={wisata.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decoding="async" />
+                    <img 
+                      src={wisata.galleries[0].url} 
+                      alt={wisata.name} 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                      loading="lazy" 
+                      decoding="async" 
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&auto=format,compress&q=60";
+                      }}
+                    />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400">Tak ada gambar</div>
+                    <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&auto=format,compress&q=60" alt="Wisata Budaya Bali" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80" loading="lazy" decoding="async" />
                   )}
                   <div className="absolute top-4 left-4">
                      <span className={`px-3 py-1 text-xs font-bold rounded-full shadow-sm backdrop-blur-md ${wisata.status === 'Buka' ? 'bg-white/90 text-emerald-600' : 'bg-amber-500/90 text-white'}`}>
@@ -128,9 +138,23 @@ const LandingPage = () => {
           ) : (
             articles.map(artikel => (
               <Link to={`/berita/${artikel.id}`} key={artikel.id} className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all group flex flex-col">
-                {artikel.image_url && (
+                {artikel.image_url ? (
                   <div className="h-48 overflow-hidden">
-                    <img src={artikel.image_url} alt={artikel.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
+                    <img 
+                      src={artikel.image_url} 
+                      alt={artikel.title} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                      loading="lazy" 
+                      decoding="async" 
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src="https://images.unsplash.com/photo-1559628233-eb1b1a45564b?w=800&auto=format,compress&q=60";
+                      }}
+                    />
+                  </div>
+                ) : (
+                  <div className="h-48 overflow-hidden bg-gray-200">
+                    <img src="https://images.unsplash.com/photo-1559628233-eb1b1a45564b?w=800&auto=format,compress&q=60" alt="Placeholder Berita" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80" loading="lazy" decoding="async" />
                   </div>
                 )}
                 <div className="p-6 flex-1 flex flex-col">
@@ -164,6 +188,21 @@ const LandingPage = () => {
                   <MapPin size={20} />
                 </div>
                 <span>Bugbug, Karangasem, Bali 80851</span>
+              </div>
+              <div className="flex items-center gap-3 mt-4">
+                <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-primary-400">
+                  <Phone size={20} />
+                </div>
+                <span>0821-4555-8763</span>
+              </div>
+              <div className="flex items-center gap-3 mt-4">
+                <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-primary-400">
+                  <Mail size={20} />
+                </div>
+                <div className="flex flex-col">
+                  <span>info@desaadatbugbug.com</span>
+                  <span className="text-gray-400 text-sm">desaadatbugbug@gmail.com</span>
+                </div>
               </div>
             </div>
           </div>
