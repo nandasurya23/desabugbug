@@ -106,11 +106,10 @@ const PublicLayout = () => {
             </ul>
           </div>
           <div>
-            <h3 className="text-lg font-bold mb-4">Hubungi Kami</h3>
+            <h3 className="text-lg font-bold mb-4">Kontak dan Informasi</h3>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li>Jl. Raya Bugbug, Karangasem, Bali</li>
-              <li>Email: info@desabugbug.id</li>
-              <li>Telepon: (0361) 1234567</li>
+              <li>Nomor Telepon/WA: 0821-4555-8763</li>
+              <li>Email: info@desaadatbugbug.com / desaadatbugbug@gmail.com</li>
             </ul>
           </div>
         </div>
