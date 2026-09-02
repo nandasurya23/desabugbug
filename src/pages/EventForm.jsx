@@ -19,7 +19,8 @@ const EventForm = () => {
     endDate: '',
     endTime: '',
     image_url: '',
-    map_iframe: ''
+    map_iframe: '',
+    balinese_event_type: ''
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -46,6 +47,12 @@ const EventForm = () => {
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    
+    if (file.size > 10 * 1024 * 1024) {
+      alert(`Ukuran file terlalu besar. Maksimal 10MB.`);
+      return;
+    }
+    
     if (!file.type.startsWith('image/')) return;
     
     setIsLoading(true);
@@ -102,6 +109,12 @@ const EventForm = () => {
             <label className="label-text">Link Google Maps / Iframe Src (Opsional)</label>
             <input type="text" name="map_iframe" value={formData.map_iframe} onChange={handleChange} className="input-field" placeholder="Contoh: https://www.google.com/maps/embed?pb=..." />
             <p className="text-xs text-gray-500 mt-1">Masukkan link dari Google Maps untuk menampilkan visualisasi lokasi di kalender.</p>
+          </div>
+
+          <div className="md:col-span-2">
+            <label className="label-text">Tipe Hari Raya / Info Kalender Bali (Opsional)</label>
+            <input type="text" name="balinese_event_type" value={formData.balinese_event_type || ''} onChange={handleChange} className="input-field border-primary-200 bg-primary-50/30" placeholder="Contoh: Purnama, Tilem, Kajeng Kliwon, Odalan..." />
+            <p className="text-xs text-primary-600 mt-1">Isi jika acara ini merupakan hari suci atau peringatan adat khusus agar mendapatkan penanda di kalender.</p>
           </div>
 
           <div className="md:col-span-2">

@@ -40,7 +40,8 @@ const LandingPage = () => {
           src="/hero.jpeg" 
           alt="Desa Bugbug Scenery" 
           className="absolute inset-0 w-full h-full object-cover bg-gray-900" 
-          fetchpriority="high"
+          fetchPriority="high"
+          loading="eager"
         />
         <div className="absolute inset-0 bg-gray-900/60 mix-blend-multiply"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>

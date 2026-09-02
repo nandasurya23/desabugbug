@@ -77,10 +77,21 @@ const WisataForm = () => {
     const files = Array.from(e.target.files);
     if (!files.length) return;
     
+    const MAX_SIZE = 10 * 1024 * 1024; // 10MB
+    const validFiles = files.filter(file => {
+      if (file.size > MAX_SIZE) {
+        alert(`Ukuran file ${file.name} terlalu besar. Maksimal 10MB.`);
+        return false;
+      }
+      return true;
+    });
+
+    if (!validFiles.length) return;
+    
     setIsLoading(true);
     try {
       const newImages = [];
-      for (const file of files) {
+      for (const file of validFiles) {
         if (!file.type.startsWith('image/')) continue;
         // Compress image to max 800x800 and 0.7 quality to save LocalStorage quota
         const base64 = await compressImage(file, 800, 800, 0.7);

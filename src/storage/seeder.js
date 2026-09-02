@@ -93,39 +93,63 @@ const getFutureDate = (daysAhead) => {
 const MOCK_EVENTS = [
   {
     id: "evt_1",
-    title: "Festival Perang Pandan (Mekare-kare)",
-    location: "Area Pura Desa Bugbug",
-    description: "Saksikan tradisi tahunan Perang Pandan yang luar biasa. Sebuah ritual budaya di mana para pemuda desa bertarung menggunakan daun pandan berduri. Acara ini merupakan bentuk penghormatan dan bagian tak terpisahkan dari adat istiadat setempat.",
-    startDate: getFutureDate(3),
+    title: "Festival Budaya Agustus",
+    location: "Lapangan Utama Desa Bugbug",
+    description: "Acara kemerdekaan dan festival budaya lokal untuk memperingati hari jadi.",
+    startDate: "2026-08-17",
     startTime: "09:00",
-    endDate: getFutureDate(4),
+    endDate: "2026-08-18",
     endTime: "16:00",
     image_url: "https://images.unsplash.com/photo-1604999333679-b86d54738315?w=800&q=80",
-    map_iframe: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.7480579172465!2d115.5898863!3d-8.4900894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd206e1088d8b67%3A0x5030bfbca7d0ba0!2sPura%20Bale%20Agung%20Desa%20Adat%20Bugbug!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid",
+    map_iframe: "https://www.google.com/maps/embed?pb=!1m18...",
     createdAt: new Date().toISOString()
   },
   {
     id: "evt_2",
-    title: "Pasar Malam & Kuliner Tradisional",
-    location: "Lapangan Utama Desa Bugbug",
-    description: "Nikmati berbagai jajanan khas tradisional, pertunjukan musik akustik dari pemuda lokal, dan pameran kerajinan tangan dari ibu-ibu PKK Desa Bugbug. Tiket masuk gratis!",
-    startDate: getFutureDate(7),
+    title: "Pasar Malam September",
+    location: "Area Pura Desa Bugbug",
+    description: "Nikmati berbagai jajanan khas tradisional dan pameran kerajinan tangan.",
+    startDate: "2026-09-15",
     startTime: "17:00",
-    endDate: getFutureDate(9),
+    endDate: "2026-09-17",
     endTime: "22:00",
     image_url: "https://images.unsplash.com/photo-1596404558231-1e967a5b3a62?w=800&q=80",
     createdAt: new Date().toISOString()
   },
   {
     id: "evt_3",
-    title: "Gotong Royong Bersih Pantai Bias Tugel",
+    title: "Gotong Royong Oktober",
     location: "Pantai Bias Tugel",
-    description: "Kami mengundang seluruh elemen masyarakat dan relawan untuk bergabung dalam kegiatan bersih-bersih pantai bulanan. Kantong sampah dan alat capit disediakan oleh panitia. Mari jaga alam kita!",
-    startDate: getFutureDate(1),
+    description: "Kegiatan bersih-bersih pantai bersama seluruh elemen masyarakat.",
+    startDate: "2026-10-10",
     startTime: "06:30",
-    endDate: getFutureDate(1),
+    endDate: "2026-10-10",
     endTime: "09:00",
-    image_url: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&auto=format,compress&q=60", // Placeholder budaya Bali
+    image_url: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&auto=format,compress&q=60",
+    createdAt: new Date().toISOString()
+  },
+  {
+    id: "evt_4",
+    title: "Upacara Adat November",
+    location: "Pura Dalem Desa Bugbug",
+    description: "Persiapan upacara dan piodalan yang akan dihadiri krama desa.",
+    startDate: "2026-11-20",
+    startTime: "08:00",
+    endDate: "2026-11-21",
+    endTime: "12:00",
+    image_url: "https://images.unsplash.com/photo-1559628233-eb1b1a45564b?w=800&q=80",
+    createdAt: new Date().toISOString()
+  },
+  {
+    id: "evt_5",
+    title: "Perayaan Akhir Tahun",
+    location: "Bukit Asah",
+    description: "Menyambut pergantian tahun dengan kemah bersama dan api unggun.",
+    startDate: "2026-12-31",
+    startTime: "18:00",
+    endDate: "2027-01-01",
+    endTime: "06:00",
+    image_url: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80",
     createdAt: new Date().toISOString()
   }
 ];
@@ -164,5 +188,13 @@ export const seedInitialData = async () => {
     await LocalStorageAPI.set('app_wisata_articles', MOCK_ARTICLES);
     await LocalStorageAPI.set('app_wisata_events', MOCK_EVENTS);
     console.log("Dummy data successfully seeded!");
+  }
+
+  // Auto-update mechanism untuk MOCK_EVENTS khusus ke v2
+  const seederVersion = await LocalStorageAPI.get('seeder_version');
+  if (seederVersion !== "v2") {
+    await LocalStorageAPI.set('app_wisata_events', MOCK_EVENTS);
+    await LocalStorageAPI.set('seeder_version', "v2");
+    console.log("Events data forcefully auto-updated to v2!");
   }
 };

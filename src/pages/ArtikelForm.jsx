@@ -42,6 +42,12 @@ const ArtikelForm = () => {
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    
+    if (file.size > 10 * 1024 * 1024) {
+      alert(`Ukuran file terlalu besar. Maksimal 10MB.`);
+      return;
+    }
+    
     if (!file.type.startsWith('image/')) return;
     
     setIsLoading(true);

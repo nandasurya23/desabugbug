@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useCallback } from 'react';
+import { BalineseDate } from 'balinese-date-js-lib';
 import { 
   format, addMonths, subMonths, startOfMonth, endOfMonth, startOfWeek, endOfWeek, 
   isSameMonth, isSameDay, addDays, parseISO, isWithinInterval
@@ -54,10 +55,16 @@ const DigitalCalendar = ({ events }) => {
     const days = [];
     const startDate = startOfWeek(currentDate, { weekStartsOn: 1 }); // Start on Monday
 
+    // Mapping of Saptawara (Balinese 7-day names) starting from Monday
+    const balineseDays = ['Soma', 'Anggara', 'Buda', 'Wraspati', 'Sukra', 'Saniscara', 'Redite'];
+
     for (let i = 0; i < 7; i++) {
       days.push(
-        <div key={i} className="text-center font-bold text-xs md:text-sm text-gray-500 py-2 uppercase tracking-wider">
-          {format(addDays(startDate, i), 'EEE', { locale: id })}
+        <div key={i} className="text-center font-bold text-xs md:text-sm text-gray-500 py-2 uppercase tracking-wider flex flex-col items-center">
+          <span>{format(addDays(startDate, i), 'EEE', { locale: id })}</span>
+          <span className="text-[10px] md:text-xs text-primary-500 font-medium capitalize tracking-normal mt-0.5">
+            {balineseDays[i]}
+          </span>
         </div>
       );
     }
@@ -156,7 +163,26 @@ const DigitalCalendar = ({ events }) => {
           <div>
             <h3 className="text-lg font-bold text-gray-900">Jadwal Acara</h3>
             <p className="text-primary-600 font-medium">
-              {format(selectedDate, 'EEEE, d MMMM yyyy', { locale: id })}
+              {(() => {
+                const dayName = format(selectedDate, 'EEEE', { locale: id });
+                const datePart = format(selectedDate, 'd MMMM yyyy', { locale: id });
+                let balineseDay = '';
+                try {
+                  const bd = new BalineseDate(selectedDate);
+                  balineseDay = ` (${bd.saptaWara.name})`;
+                } catch(e) {}
+                return `${dayName}${balineseDay}, ${datePart}`;
+              })()}
+            </p>
+            <p className="text-xs text-gray-500 font-medium mt-1">
+              {(() => {
+                try {
+                  const bd = new BalineseDate(selectedDate);
+                  return `${bd.saptaWara.name} ${bd.pancaWara.name} ${bd.wuku.name}, Sasih ${bd.sasih.name}`;
+                } catch (e) {
+                  return '';
+                }
+              })()}
             </p>
           </div>
         </div>
@@ -182,6 +208,11 @@ const DigitalCalendar = ({ events }) => {
                     loading="lazy" 
                     decoding="async"
                   />
+                )}
+                {event.balinese_event_type && (
+                  <div className="inline-block px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold rounded-full mb-2 border border-yellow-200 uppercase tracking-wide shadow-sm">
+                    ✨ {event.balinese_event_type}
+                  </div>
                 )}
                 <h4 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors">{event.title}</h4>
                 
